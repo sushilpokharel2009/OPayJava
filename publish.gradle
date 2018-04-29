@@ -1,0 +1,67 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
+def pomConfig = {
+    licenses {
+        license {
+            name "The MIT License"
+            url "https://opensource.org/licenses/MIT"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "perfectmak"
+            name "Perfect Makanju"
+            email "perfectm@opay.team"
+        }
+    }
+
+    scm {
+        url "https://github.com/perfectmak/OPayJava.git"
+    }
+}
+
+publishing {
+    publications {
+        mavenPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar {
+                classifier "sources"
+            }
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+            groupId 'com.operapay'
+            artifactId 'OpayJava'
+            version '1.0.0'
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'An OPay API Java Library.')
+                root.appendNode('name', 'OPAY Java Library')
+                root.appendNode('url', 'https://github.com/perfectmak/OPayJava.git')
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getProperty('bintray.user')
+    key = System.getProperty('bintray.key')
+    publications = ['mavenPublication']
+
+    pkg {
+        repo = 'OPayJava'
+        name = 'OPayJava'
+        userOrg = 'perfectmak'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/perfectmak/OPayJava.git'
+        version {
+            name = '1.0.0'
+            desc = '1.0.0'
+            released  = new Date()
+        }
+    }
+
+}

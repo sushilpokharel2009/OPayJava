@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opay.iml" filepath="$PROJECT_DIR$/.idea/modules/opay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opay_main.iml" filepath="$PROJECT_DIR$/.idea/modules/opay_main.iml" group="opay" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opay_test.iml" filepath="$PROJECT_DIR$/.idea/modules/opay_test.iml" group="opay" />
+    </modules>
+  </component>
+</project>
