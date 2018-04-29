@@ -29,6 +29,12 @@ interface RequestManager {
      *
      */
     fun <T> postGraphQL(data: String, success: SuccessCallback<T>, error: ErrorCallback?)
+
+    /**
+     * Make request of data through graph api, use for API's that don't exist via REST
+     *
+     */
+    fun <T> postGraphQL(data: String, accessToken: String, success: SuccessCallback<T>, error: ErrorCallback?)
 }
 
 /**
@@ -54,6 +60,7 @@ internal class DefaultRequestManager: RequestManager {
 
     override fun <T> postREST(path: String, data: Any, success: SuccessCallback<T>, error: ErrorCallback?) {
         val jsonData = parser.toJson(data)
+        println(jsonData)
         val request = Request.Builder().url(api(path))
                 .post(RequestBody.create(MediaType.parse("application/json"), jsonData))
                 .build()
@@ -71,7 +78,17 @@ internal class DefaultRequestManager: RequestManager {
         submitRequest(request, error, success)
     }
 
-    private fun <T> submitRequest(request: Request?, error: ErrorCallback?, success: SuccessCallback<T>) {
+    override fun <T> postGraphQL(data: String, accessToken: String, success: SuccessCallback<T>, error: ErrorCallback?) {
+        val jsonData = parser.toJson(mapOf("query" to data))
+        val request = Request.Builder().url(baseUrl() + "/graphql")
+                .post(RequestBody.create(MediaType.parse("application/json"), jsonData))
+                .header("Accept", "application/json")
+                .header("Authorization", "token $accessToken")
+                .build()
+        submitRequest(request, error, success)
+    }
+
+    private fun <T> submitRequest(request: Request, error: ErrorCallback?, success: SuccessCallback<T>) {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call?, e: IOException?) {
                 error?.invoke(e)

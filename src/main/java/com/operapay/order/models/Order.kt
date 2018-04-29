@@ -1,7 +1,10 @@
 package com.operapay.order.models
 
+import com.google.gson.annotations.SerializedName
+import com.operapay.core.CashbackType
 import com.operapay.core.PaymentType
 import com.operapay.core.ServiceType
+import com.sun.org.apache.xpath.internal.operations.Bool
 import java.lang.IllegalArgumentException
 
 /**
@@ -106,3 +109,12 @@ data class OrderRequest(
 }
 
 typealias OrderResponse = String // order Id
+
+data class OrderStatusResponse(
+    val type: String,
+    val failed: Boolean,
+    val closed: Boolean,
+    @SerializedName("failure_reason") val failureReason: String,
+    @SerializedName("close_reason") val closeReason: String,
+    val cashback: CashbackType
+)

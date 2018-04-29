@@ -10,6 +10,4 @@ class OPay {
         @JvmStatic
         var testMode = true
     }
-
 }
-

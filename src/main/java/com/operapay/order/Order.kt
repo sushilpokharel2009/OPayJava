@@ -3,7 +3,7 @@ package com.operapay.order
 import com.operapay.core.*
 import com.operapay.order.models.OrderRequest
 import com.operapay.order.models.OrderResponse
-
+import com.operapay.order.models.OrderStatusResponse
 
 
 /**
@@ -12,7 +12,7 @@ import com.operapay.order.models.OrderResponse
  */
 class Order(private val rm: RequestManager = DefaultRequestManager()) {
 
-    fun submit(order: OrderRequest, success: SuccessCallback<OrderResponse>, error: ErrorCallback) {
+    fun submit(accessToken: AccessToken, order: OrderRequest, success: SuccessCallback<OrderResponse>, error: ErrorCallback) {
 
         val query = "mutation { order( orderConfig: { " +
                 onlyIfExists("orderId", order.orderId, true) +
@@ -32,7 +32,18 @@ class Order(private val rm: RequestManager = DefaultRequestManager()) {
 
         rm.postGraphQL(
             query,
+            accessToken.value,
             parseResponse("order", OrderResponse::class, success),
+            error
+        )
+    }
+
+    fun status(accessToken: AccessToken, orderId: String, success: SuccessCallback<OrderStatusResponse>, error: ErrorCallback) {
+        val query = "query { orderStatus(id: \"$orderId\") { type failed closed failure_reason cashback { amount { value currency } } } }"
+        rm.postGraphQL(
+            query,
+            accessToken.value,
+            parseResponse("orderStatus", OrderStatusResponse::class, success),
             error
         )
     }

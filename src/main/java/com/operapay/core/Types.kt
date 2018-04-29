@@ -2,6 +2,7 @@ package com.operapay.core
 
 import com.google.gson.*
 import com.google.gson.annotations.JsonAdapter
+import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
@@ -56,3 +57,12 @@ enum class PaymentType(val value: String) {
         }
     }
 }
+
+data class AccessToken(@SerializedName("expires_at") val expiresAt: String, val value: String)
+typealias AccessCode = String
+
+data class KeyPair(internal val publicKey: String, internal val privateKey: String)
+
+data class CurrencyAmount(val currency: String, val value: String)
+
+data class CashbackType(val amount: CurrencyAmount)

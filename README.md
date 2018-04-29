@@ -191,6 +191,54 @@ public class App {
 ### 4. Performing Bank disbursement
 This involves using their Order API and the `Order::submit()` method.
 
+```java
+import com.operapay.core.Authorizer;
+import com.operapay.core.KeyPair;
+import com.operapay.core.PaymentType;
+import com.operapay.core.RequestManager;
+import com.operapay.core.ServiceType;
+import com.operapay.order.models.OrderRequest;
+
+...
+ 
+// Keypair is required to get accessToken for disbursement
+// NOTE: keep your private-key safe :)
+KeyPair keys = new KeyPair("public-key", "private-key");
+Authorizer authorizer = new Authorizer();
+ 
+// First you need to get an AccessToken
+authorizer.getAccessToken(keys, accessToken -> {
+    OrderRequest bankDisbursmentOrder = new OrderRequest.Builder(
+            "orderId-1", // unique order id
+            "NG", // country code
+            "NGN", // currency  code
+            "5000", // amount to disburse
+            ServiceType.BANK, // for bank disbursement
+            PaymentType.COINS // if disbursing from your merchant account balance
+    )
+            .setRecipientAccount("1234567890") // recipients bank Account
+            .setRecipientBankCode("232150029") // recipients bank code
+            .build();
+ 
+    // Secondly, you submit order request
+    Order order = new Order();
+    order.submit(accessToken, bankDisbursmentOrder, orderId -> {
+        System.out.println(orderId); // you can use this order id to query status of order
+    }, Throwable::printStackTrace);
+}, Throwable::printStackTrace);
+```
+
+Then you can now check for order status using the `Order::status()` methods.
+
+```java
+import com.operapay.order.models.OrderStatusResponse;
+ 
+...
+order.status(accessToken, orderId, (OrderStatusResponse orderStatus) -> {
+    // check the status of order
+    System.out.println(orderStatus);
+}, Throwable::printStackTrace);
+```
 
 ## Contribution
 Your contribution would be more than welcome. 
