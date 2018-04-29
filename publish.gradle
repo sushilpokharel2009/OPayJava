@@ -34,7 +34,7 @@ publishing {
             }
             groupId 'com.operapay'
             artifactId 'OpayJava'
-            version '1.0.0'
+            version '1.0.1'
             pom.withXml {
                 def root = asNode()
                 root.appendNode('description', 'An OPay API Java Library.')
@@ -58,8 +58,8 @@ bintray {
         licenses = ['MIT']
         vcsUrl = 'https://github.com/perfectmak/OPayJava.git'
         version {
-            name = '1.0.0'
-            desc = '1.0.0'
+            name = '1.0.1'
+            desc = '1.0.1'
             released  = new Date()
         }
     }
