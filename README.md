@@ -121,6 +121,8 @@ gateway.status(statusRequest, (GatewayStatusResponse statusResponse) -> {
 
 So keep checking status till you get a `StatusSuccessful` or `StatusFailed`.
 
+> You can use `Gateway.commit()` to perform a commit step after calling `Gateway.create()`.
+
 ### 2. Charging Bank Account for Payment
 This step is similar to the `1. Charging Card for Payment` step above. The only difference 
  is that instead of calling `gateway.create()` with a `GatewayCardChargeRequest`, you call it with 
@@ -186,7 +188,7 @@ public class App {
 }
 ```
 
-### 3. Performing Bank disbursement
+### 4. Performing Bank disbursement
 This involves using their Order API and the `Order::submit()` method.
 
 
