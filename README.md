@@ -4,6 +4,17 @@ Using this library, you can easily accept payment in your Java Application.
 
 > It is worth nothing that the Library was actually implemented using Kotlin but has been developed to be Java friendly.
 
+## Table of Content
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Setting the Environment Configuration](#setting-the-environment-configuration)
+    - 1 . [Charging Card for Payment](#1-charging-card-for-payment)
+    - 2 . [Charging Bank Account for Payment](#2-charging-bank-account-for-payment)
+    - 3 . [Performing Bank Account Name Lookup](#3-perform-bank-account-name-lookup)
+    - 4 . [Performing Bank Disbursement](#4-performing-bank-disbursement)
+- [Contribution](#contribution)
+- [LICENSE](#license)
+
 ## Installation
 Add the following lines to your app's build.gradle:
 
@@ -188,7 +199,7 @@ public class App {
 }
 ```
 
-### 4. Performing Bank disbursement
+### 4. Performing Bank Disbursement
 This involves using their Order API and the `Order::submit()` method.
 
 ```java
