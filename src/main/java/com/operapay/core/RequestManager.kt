@@ -38,8 +38,7 @@ interface RequestManager {
  */
 internal class DefaultRequestManager: RequestManager {
     companion object {
-//        const val TEST_BASE_URL = "https://bz-sandbox.opay-test.net"
-        const val TEST_BASE_URL = "http://localhost:8080"
+        const val TEST_BASE_URL = "https://bz-sandbox.opay-test.net"
         const val BASE_URL = "https://operapay.com"
     }
 
