@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 1.1.1 (29/04/2018)
+- Fix bug with `Gateway::commit()' signature
+
 ## Version 1.1.0 (29/04/2018)
 - Implement `Authorizer` for getting Access Tokens for Order Request
 - Implement `Order.status()` for checking order Status
