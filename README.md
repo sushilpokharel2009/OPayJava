@@ -24,7 +24,7 @@ repositories {
 }
  
 dependencies {
-    compile 'com.operapay:OpayJava:1.1.0'
+    compile 'com.operapay:OpayJava:1.1.1'
 }
 ```
 

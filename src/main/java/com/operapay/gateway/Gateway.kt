@@ -27,7 +27,7 @@ class Gateway(private val rm: RequestManager = DefaultRequestManager()) {
         )
     }
 
-    fun commit(request: GatewayCommitResponse, success: SuccessCallback<GatewayCommitResponse>, error: ErrorCallback) {
+    fun commit(request: GatewayCommitRequest, success: SuccessCallback<GatewayCommitResponse>, error: ErrorCallback) {
         rm.postREST(
             PATH_GATEWAY_COMMIT,
             WithInput(request),
