@@ -20,9 +20,7 @@ Add the following lines to your app's build.gradle:
 
 ```groovy
 repositories {
-    maven {
-        url "https://dl.bintray.com/perfectmak/OPayJava"
-    }
+    jcenter()
 }
  
 dependencies {
